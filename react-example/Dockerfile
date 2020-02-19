@@ -19,6 +19,7 @@ COPY public ./public
 
 RUN touch .env
 RUN echo "REACT_APP_API_URL=http://localhost:9292" >> .env 
+RUN echo "REACT_APP_API_CLIENT=Y2ZmZTM5OTAtNmYwZS0xMWU4LWI3NTAtNGQ4NjE0Yzk0MGZmOnNlY3JldA==" >> .env 
 # Build and optimize react app
 RUN npm run build
 EXPOSE 9000

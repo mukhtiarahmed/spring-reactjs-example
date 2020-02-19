@@ -6,7 +6,6 @@ import { history } from "./helper/History";
 import { authenticationService } from "./service/AuthService";
 
 class Home extends React.Component {
-
   componentDidMount() {
     authenticationService.currentUser.subscribe(x =>
       this.setState({ currentUser: x })
@@ -18,13 +17,12 @@ class Home extends React.Component {
     history.push("/login");
   }
 
-
   render() {
     return (
       <div className="wrapper">
         <MainHeader />
         <div className="main-panel ps ps--active-y">
-          <MainNav/>
+          <MainNav logout={this.logout} />
           <MainContent />
         </div>
       </div>

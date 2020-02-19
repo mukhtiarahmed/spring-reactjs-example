@@ -8,7 +8,6 @@ import { authenticationService } from "./service/AuthService";
 import { PrivateRoute } from "./components/PrivateRoute";
 import Users from "./Users/Users";
 
-
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -30,8 +29,6 @@ class App extends React.Component {
   }
 
   render() {
-    console.log(process.env.REACT_APP_API_URL);
-    console.log(process.env.REACT_APP_API_CLIENT);
     return (
       <BrowserRouter history={history}>
         <Switch>
