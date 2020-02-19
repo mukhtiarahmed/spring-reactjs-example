@@ -14,6 +14,10 @@
 4. Run the docker-compose using the following command   
   * `docker-compose up -d`     
   
+5. Open Url [http://localhost:9000/](http://localhost:9000/) in a browser 
 
+
+6. you can use following user account to login the application.
+   * Username = ahmed, password = secret, Role = Super Admin
  
   
