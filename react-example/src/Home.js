@@ -6,12 +6,6 @@ import { history } from "./helper/History";
 import { authenticationService } from "./service/AuthService";
 
 class Home extends React.Component {
-  componentDidMount() {
-    authenticationService.currentUser.subscribe(x =>
-      this.setState({ currentUser: x })
-    );
-  }
-
   logout() {
     authenticationService.logout();
     history.push("/login");
