@@ -1,0 +1,44 @@
+version: "3"
+
+services:
+  client:
+    ports:
+      - "9000:9000"
+    environment:
+      API_URL: http://localhost:9292
+    image: react-example:latest
+    container_name: client
+    networks:
+      oauthnetwork:
+        aliases:
+          - client
+  oauth-mongodb:
+    hostname: oauth-mongodb
+    ports:
+      - "9292:9292"
+    environment:
+      MONGO_URI: mongodb://mongodb_auth/auth_db
+    image: oauth-mongodb:latest
+    container_name: oauth-mongodb
+    networks:
+      oauthnetwork:
+        aliases:
+          - oauth-mongodb
+  mongodb_auth:
+    image: mongo
+    container_name: mongodb_auth
+    volumes:
+      - dbvolume:/data/db
+    ports:
+      - "27017:27017"
+    networks:
+      oauthnetwork:
+        aliases:
+          - mongodb_auth
+
+volumes:
+  dbvolume:
+
+networks:
+  oauthnetwork:
+    driver: bridge
