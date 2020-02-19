@@ -16,7 +16,6 @@ export const authenticationService = {
 };
 
 function login(username, password) {
-
   const requestOptions = {
     method: "POST",
     headers: {
@@ -30,8 +29,6 @@ function login(username, password) {
       password: password
     })
   };
-
-  console.log(requestOptions);
 
   return fetch(`${process.env.REACT_APP_API_URL}/oauth/token`, requestOptions)
     .then(handleResponse)
@@ -54,11 +51,9 @@ function getUser() {
     headers: header
   };
 
-
   return fetch(`${process.env.REACT_APP_API_URL}/users/me`, requestOptions)
     .then(handleResponse)
     .then(user => {
-      console.log(user.data);
       localStorage.setItem("currentUser", JSON.stringify(user.data));
       currentUserSubject.next(user);
 
