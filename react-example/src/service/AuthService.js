@@ -1,7 +1,7 @@
 import { BehaviorSubject } from "rxjs";
 import queryString from "querystring";
 import { handleResponse } from "../helper/HandleResponse";
-require("dotenv").config();
+import { authHeader } from "../helper/AuthHeader";
 const currentUserSubject = new BehaviorSubject(
   JSON.parse(localStorage.getItem("currentUser"))
 );
@@ -16,13 +16,12 @@ export const authenticationService = {
 };
 
 function login(username, password) {
-  console.log(`${process.env.REACT_APP_API_URL}`);
+
   const requestOptions = {
     method: "POST",
     headers: {
       "Content-Type": "application/x-www-form-urlencoded",
-      Authorization:
-        "Basic Y2ZmZTM5OTAtNmYwZS0xMWU4LWI3NTAtNGQ4NjE0Yzk0MGZmOnNlY3JldA=="
+      Authorization: `Basic ${process.env.REACT_APP_API_CLIENT}`
     },
     body: queryString.stringify({
       grant_type: "password",
@@ -32,13 +31,14 @@ function login(username, password) {
     })
   };
 
+  console.log(requestOptions);
+
   return fetch(`${process.env.REACT_APP_API_URL}/oauth/token`, requestOptions)
     .then(handleResponse)
     .then(token => {
       // store user details and jwt token in local storage to keep user logged in between page refreshes
-      console.log(token);
       localStorage.setItem("token", JSON.stringify(token));
-      const user = getUser(token.access_token);
+      const user = getUser();
       return user;
     })
     .catch(error => {
@@ -47,13 +47,13 @@ function login(username, password) {
     });
 }
 
-function getUser(token) {
-  console.log(token);
+function getUser() {
+  let header = authHeader();
   const requestOptions = {
     method: "GET",
-    headers: { Authorization: `Bearer ${token}` }
+    headers: header
   };
-  console.log(`${process.env.REACT_APP_API_URL}`);
+
 
   return fetch(`${process.env.REACT_APP_API_URL}/users/me`, requestOptions)
     .then(handleResponse)
@@ -72,6 +72,7 @@ function getUser(token) {
 
 function logout() {
   // remove user from local storage to log user out
+  localStorage.removeItem("token");
   localStorage.removeItem("currentUser");
   currentUserSubject.next(null);
 }

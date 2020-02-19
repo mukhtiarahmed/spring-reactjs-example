@@ -1,8 +1,10 @@
 import React from "react";
 
 class AuthHeader extends React.Component {
+
+
   render() {
-    var headerStyle = {
+    const headerStyle = {
       backGround: "#FF4A55"
     };
 
@@ -10,8 +12,7 @@ class AuthHeader extends React.Component {
       <nav style={headerStyle} className="navbar navbar-default App-header">
         <div>
           <a className="navbar-brand" href={process.env.PUBLIC_URL + "/"}>
-            <img
-              alt="logo"
+            <img alt="logo"
               width="30"
               height="30"
               src={process.env.PUBLIC_URL + "/assets/img/angular-red.png"}
