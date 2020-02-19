@@ -1,4 +1,4 @@
-#  Spring Security Oauth2 Mongodb Docker,React JS Example
+#  Spring Security Oauth2, Mongodb, Docker,React JS Example
 
 ## Prerequisites:
 * Docker
